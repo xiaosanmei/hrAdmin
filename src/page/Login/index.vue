@@ -64,18 +64,18 @@ input::-webkit-input-placeholder {
          <div class='cover'>
             <div class='title'>Health</div>
             <div class='row'>
-                <el-input v-model="keyword" placeholder="请输入内容" class='input'></el-input>
+                <el-input v-model="account" placeholder="请输入内容" class='input'></el-input>
             </div>
             <div class='row'>
                 <el-input v-model="password" type='password' placeholder="请输入密码" class='input'></el-input>
             </div>
             <div class='row'>
-                <el-input v-model="efficacy" placeholder="请输入验证码" class='input-1'></el-input>
+                <el-input v-model="captionCode" placeholder="请输入验证码" class='input-1'></el-input>
                 <span class='imageing'>
                     <img v-bind:src="captionCodeImg"/>
                 </span>
             </div>
-            <button class='button'>登陆</button>
+            <button class='button' @click='login'>登陆</button>
             <div class='callMe'>联系我们</div>
          </div>
  </div>
@@ -84,43 +84,32 @@ input::-webkit-input-placeholder {
 export default {
   data() {
     return {
-      keyword: "",
+      account: "",
       password: "",
-      efficacy: "",
+      captionCode: "",
       captionCodeImg: ""
     };
   },
   mounted() {
-    this.getCaptionCode();
+    this.getCaption();
   },
   methods: {
-  //   getCaptionCode() {
-  //     // this.api.then(res => {
-  //     //   console.log(res);
-  //     //   if (res.code == 0) {
-  //     //     this.captionCodeImg =res.data;
-  //     //   }
-  //     //   return this.api;
-  //     // });
-  //      this.api('GET','admin/70/37/login-caption').then(function(res){
-  //      console.log(123)
-  //        console.log(res)
-  //        if (res.code == 0) {
-  //           this.captionCodeImg =res.data;
-  //        }
-  // }.bind(this))
-  //   },
-   async getCaptionCode(){
-     let res=await this.api('GET','admin/70/37/login-caption')
-     console.log(res)
+   async getCaption(){
+     let res=await this.api.getCaptionCode();
       if (res.code == 0) {
             this.captionCodeImg =res.data;
          }
+   },
+  async login(){
+     let param="account=1710187335&password=123465&captionCode=" + this.captionCode;
+    //  let param='account='+this.account+'&password='+this.password+'&captionCode='+this.captionCode;
+     console.log(param)
+     let res=await this.api.login(param);
+       console.log(res)
+     if(res.code == 0){
+        location.href = "../employee/index.html";
+     }
    }
-
-
-
-
   }
 
 };
