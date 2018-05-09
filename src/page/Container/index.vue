@@ -2,14 +2,22 @@
 
 </style>
 <template>
-  <div>容器</div>
+  <div>
+      <vue-side-bar></vue-side-bar>
+      <router-view></router-view>
+  </div>
 </template>
 <script>
+import sideBar from "@/components/sideBar";
+
 export default {
   data(){
       return{
           
       }
+  },
+  components:{
+    VueSideBar: sideBar
   }
 }
 </script>

@@ -107,7 +107,7 @@ export default {
      let res=await this.api.login(param);
        console.log(res)
      if(res.code == 0){
-        location.href = "../employee/index.html";
+        this.$router.push('employee');
      }
    }
   }
